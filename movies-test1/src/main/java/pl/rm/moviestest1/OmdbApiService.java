@@ -15,13 +15,13 @@ public class OmdbApiService {
                 .build();
     }
 
-    public Mono<String> searchByTitle(String title, String apiKey) {
+    public Mono<Movie> searchByTitle(String title, String apiKey) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("t", title)
                         .queryParam("apikey", apiKey)
                         .build())
                 .retrieve()
-                .bodyToMono(String.class);
+                .bodyToMono(Movie.class);
     }
 }
