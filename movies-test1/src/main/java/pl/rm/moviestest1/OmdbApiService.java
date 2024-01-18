@@ -9,9 +9,11 @@ public class OmdbApiService {
 
     private final WebClient webClient;
 
+
+
     public OmdbApiService() {
         this.webClient = WebClient.builder()
-                .baseUrl("http://www.omdbapi.com/") // Ustaw bazowy adres API OMdb
+                .baseUrl("http://www.omdbapi.com/")
                 .build();
     }
 
@@ -24,4 +26,5 @@ public class OmdbApiService {
                 .retrieve()
                 .bodyToMono(Movie.class);
     }
+
 }

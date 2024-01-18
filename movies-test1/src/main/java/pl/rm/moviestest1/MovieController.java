@@ -19,14 +19,21 @@ public class MovieController {
     }
 
     @GetMapping("/search")
-    public Mono<Movie> searchMovieByTitle(@RequestParam String title) {
-        Mono<Movie> movieMono = omdbApiService.searchByTitle(title, omdbApiKey);
+    public Mono<MovieEntity> searchMovieByTitle(@RequestParam String title) {
+        Mono<MovieEntity> movieEntityMono = omdbApiService.searchByTitle(title, omdbApiKey)
+                .map(movie -> {
+                    MovieEntity movieEntity = new MovieEntity();
+                    movieEntity.setMovieTitle(movie.getTitle());
+                    movieEntity.setReleaseYear(movie.getYear());
+                    return movieEntity;
+                });
 
-    movieMono.subscribe(movie -> {
-        System.out.println("Title: " + movie.getTitle());
-        System.out.println("Year: " + movie.getYear());
-    });
+        movieEntityMono.subscribe(movieEntity -> {
+            System.out.println("Title: " + movieEntity.getMovieTitle());
+            System.out.println("Year: " + movieEntity.getReleaseYear());
+        });
 
-        return movieMono;
+        return movieEntityMono;
     }
 }
+

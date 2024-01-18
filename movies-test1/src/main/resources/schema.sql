@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS movie (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    realase_year VARCHAR(4)
+);

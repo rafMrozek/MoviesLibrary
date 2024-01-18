@@ -3,8 +3,9 @@ package pl.rm.moviestest1;
 public class MovieEntity {
 
     private Long id;
-    private String title;
-    private String year;
+    private String movieTitle;
+    private String releaseYear;
+
     public Long getId() {
         return id;
     }
@@ -13,19 +14,19 @@ public class MovieEntity {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getMovieTitle() {
+        return movieTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
     }
 
-    public String getYear() {
-        return year;
+    public String getReleaseYear() {
+        return releaseYear;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setReleaseYear(String releaseYear) {
+        this.releaseYear = releaseYear;
     }
 }
