@@ -18,7 +18,7 @@ public class MovieRepository {
     }
 
     public void save(MovieEntity movieEntity) {
-        String sql = "INSERT INTO movie (title, year) VALUES (?, ?)";
+        String sql = "INSERT INTO movie (title, realase_year) VALUES (?, ?)";
         jdbcTemplate.update(sql, movieEntity.getMovieTitle(), movieEntity.getReleaseYear());
     }
 
