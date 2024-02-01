@@ -5,6 +5,15 @@ public class MovieEntity {
     private Long id;
     private String movieTitle;
     private String releaseYear;
+    private boolean favorite;
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
 
     public Long getId() {
         return id;
