@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS movie (
 CREATE TABLE IF NOT EXISTS favorite_movie (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     movie_id BIGINT,
+    favorite BOOLEAN,
     FOREIGN KEY (movie_id) REFERENCES movie(id)
 );
