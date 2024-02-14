@@ -32,29 +32,33 @@ public class MovieController {
     @GetMapping("/search")
     public Mono<MovieEntity> searchMovieByTitle(@RequestParam String title) {
         return omdbApiService.searchByTitle(title, omdbApiKey)
-                .map(movie -> {
+                .flatMap(movie -> {
                     MovieEntity movieEntity = new MovieEntity();
                     movieEntity.setMovieTitle(movie.getTitle());
                     movieEntity.setReleaseYear(movie.getYear());
 
                     movieEntity.setFavorite(favoriteMovieService.isFavorite(movieEntity));
 
-                    movieRepository.save(movieEntity);
+                    movieRepository.findByTitle(movieEntity.getMovieTitle())
+                            .ifPresentOrElse(
+                                    existingMovie -> movieEntity.setId(existingMovie.getId()),
+                                    () -> movieRepository.saveAndGetByTitle(movieEntity)
+                            );
 
-                    return movieEntity;
+                    return Mono.just(movieEntity);
                 });
     }
     @PostMapping("/favorite")
-    public Mono<String> addToFavorites(@RequestParam Long movieId) {   //Long movieId
+    public Mono<String> addToFavorites(@RequestParam String title) {
 
-        MovieEntity movieEntity = movieRepository.findById(movieId).orElse(null); //movieId
+        MovieEntity movieEntity = movieRepository.findByTitle(title).orElse(null);
 
         if (movieEntity != null) {
 
             favoriteMovieService.addToFavorites(movieEntity);
             return Mono.just("Film dodano do ulubionych.");
         } else {
-            return Mono.just("Film o podanym ID nie istnieje.");
+            return Mono.just("Film o podanym tytule nie istnieje.");
         }
     }
     @GetMapping("/favorites")
@@ -63,4 +67,3 @@ public class MovieController {
         return Mono.just(favorites);
     }
 }
-

@@ -19,22 +19,28 @@ public class MovieRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void save(MovieEntity movieEntity) {
-        String sql = "INSERT INTO movie (title, realase_year) VALUES (?, ?)";
+    public MovieEntity saveAndGetByTitle(MovieEntity movieEntity) {
+        String sql = "INSERT INTO movie (title, release_year) VALUES (?, ?)";
         jdbcTemplate.update(sql, movieEntity.getMovieTitle(), movieEntity.getReleaseYear());
+
+        return movieEntity;
     }
 
-    public List<MovieEntity> findByTitle(String title) {
+    public Optional<MovieEntity> findByTitle(String title) {
         String sql = "SELECT * FROM movie WHERE title = ?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(MovieEntity.class), title);
+        try {
+            MovieEntity movie = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(MovieEntity.class), title);
+            return Optional.ofNullable(movie);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
-    public Optional<MovieEntity> findById(Long id) {
-        String sql = "SELECT * FROM movie WHERE id = ?";
+    public Optional<MovieEntity> findByTitleAndId(String title, Long id) {
+        String sql = "SELECT * FROM movie WHERE title = ?";
         try {
             return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(MovieEntity.class), id));
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
         }
     }
-
 }

@@ -28,7 +28,14 @@ public class FavoriteMovieRepository {
     }
 
     public List<MovieEntity> getFavorites() {
-        String sql = "SELECT m.id, m.title, m.release_year FROM movie m JOIN favorite_movie f ON m.id = f.movie_id";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(MovieEntity.class));
+        String sql = "SELECT m.id, m.title, m.release_year, f.favorite FROM movie m JOIN favorite_movie f ON m.id = f.movie_id";
+        return jdbcTemplate.query(sql, (resultSet, i) -> {
+            MovieEntity movieEntity = new MovieEntity();
+            movieEntity.setId(resultSet.getLong("id"));
+            movieEntity.setMovieTitle(resultSet.getString("title"));
+            movieEntity.setReleaseYear(resultSet.getString("release_year"));
+            movieEntity.setFavorite(resultSet.getBoolean("favorite"));
+            return movieEntity;
+        });
     }
 }
