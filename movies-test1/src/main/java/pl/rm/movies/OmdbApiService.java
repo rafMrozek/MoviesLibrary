@@ -1,4 +1,4 @@
-package pl.rm.moviestest1;
+package pl.rm.movies;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;

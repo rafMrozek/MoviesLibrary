@@ -1,4 +1,4 @@
-package pl.rm.moviestest1;
+package pl.rm.movies;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

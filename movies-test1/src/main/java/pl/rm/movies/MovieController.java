@@ -1,4 +1,4 @@
-package pl.rm.moviestest1;
+package pl.rm.movies;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

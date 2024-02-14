@@ -1,13 +1,13 @@
-package pl.rm.moviestest1;
+package pl.rm.movies;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MoviesTest1Application {
+public class MoviesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MoviesTest1Application.class, args);
+		SpringApplication.run(MoviesApplication.class, args);
 	}
 
 }

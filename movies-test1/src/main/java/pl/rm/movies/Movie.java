@@ -1,4 +1,4 @@
-package pl.rm.moviestest1;
+package pl.rm.movies;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
